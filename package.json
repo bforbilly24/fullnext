@@ -9,7 +9,7 @@
     "knex": "knex"
   },
   "dependencies": {
-    "knex": "^0.12.14",
+    "knex": "^0.21.14",
     "mysql": "^2.18.1",
     "next": "^10.2.3",
     "react": "17.0.1",
