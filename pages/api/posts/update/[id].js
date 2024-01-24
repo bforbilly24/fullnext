@@ -1,12 +1,23 @@
 import db from '../../../../libs/db';
 
 export default async function handler(req, res) {
-    const { id } = req.query;
+    if(req.method !== 'PUT') return res.status(405).end();
 
-    console.log(id)
+    const { id } = req.query;
+    const { title, content } = req.body
+
+    const update = await db('posts')
+                            .where({ id })
+                            .update({ 
+                                title,
+                                content
+                            });
  
+    const updatedData = await db('posts').where({ id }).first();
+
     res.status(200);
     res.json({
-        message: 'Posts updated successfully'
+        message: 'Posts updated successfully',
+        data: updatedData
     });
 }
