@@ -10,9 +10,12 @@ export default async function handler(req, res) {
         content
     });
 
+    const createdData = await db('posts').where('id', create).first();
+
     res.status(200);
     res.json({
-        message: 'Post created successfully'
+        message: 'Post created successfully',
+        data: createdData
     });
     
 }
