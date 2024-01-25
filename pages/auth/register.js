@@ -1,54 +1,63 @@
 import React, { useState } from 'react';
 
 export default function Register() {
-	const [fields, setFields] = useState({ 
-		email: '', 
-		password: '' 
-	});
+  const [fields, setFields] = useState({
+    email: '',
+    password: '',
+  });
 
-	async function registerHandler(e) {
-		e.preventDefault();
+  const [status, setStatus] = useState('normal');
 
-		const registerReq = await fetch('/api/auth/register', {
-			method: 'POST',
-			body: JSON.stringify(fields)
-		});
+  async function registerHandler(e) {
+    e.preventDefault();
 
-		const registerRes = await registerReq.json();
+    setStatus('loading');
 
-		console.log(registerRes);
-	}
+    const registerReq = await fetch('/api/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(fields),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-	function fieldHandler(e) {
-		const name = e.target.getAttribute('name');
+    if (!registerReq.ok) return setStatus('error ' + registerReq.status);
 
-		setFields({
-			...fields,
-			[name]: e.target.value
-		});
-	}
+    const registerRes = await registerReq.json();
 
-	return (
+    setStatus('success');
+  }
+
+  function fieldHandler(e) {
+    const name = e.target.getAttribute('name');
+
+    setFields({
+      ...fields,
+      [name]: e.target.value,
+    });
+  }
+
+  return (
     <div>
       <h1>Register</h1>
 
       <form onSubmit={registerHandler.bind(this)}>
-        <input 
-		name='email'
-		onChange={fieldHandler.bind(this)}
-		type='text' 
-		placeholder='Email'
-		/>
         <input
-		name='password'
-		onChange={fieldHandler.bind(this)}
-		type='password' 
-		placeholder='Password' 
-		/>
+          name='email'
+          onChange={fieldHandler.bind(this)}
+          type='text'
+          placeholder='Email'
+        />
+        <input
+          name='password'
+          onChange={fieldHandler.bind(this)}
+          type='password'
+          placeholder='Password'
+        />
         <br />
-        <button type='submit'>
-			Register
-			</button>
+        <button type='submit'>Register</button>
+
+        <div>Output: {status}</div>
       </form>
     </div>
   );
