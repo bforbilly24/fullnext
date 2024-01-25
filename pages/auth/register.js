@@ -6,10 +6,17 @@ export default function Register() {
 		password: '' 
 	});
 
-	function registerHandler(e) {
+	async function registerHandler(e) {
 		e.preventDefault();
 
-		console.log(fields)
+		const registerReq = await fetch('/api/auth/register', {
+			method: 'POST',
+			body: JSON.stringify(fields)
+		});
+
+		const registerRes = await registerReq.json();
+
+		console.log(registerRes);
 	}
 
 	function fieldHandler(e) {
