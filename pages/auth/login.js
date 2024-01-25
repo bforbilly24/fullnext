@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Cookie from 'js-cookie';
 import Router from 'next/router';
-import cookies from 'next-cookies';
+import { unauthPage } from '../../middlewares/authorizationPage';
 
 export async function getServerSideProps(ctx) {
-	const allCookies = cookies(ctx);
+	await unauthPage(ctx);
 
-	if(!allCookies.token) 
-		ctx.res.writeHead(302, {
-			Location: '/posts'
-		}).end();
-
-	return { props: {} }
+	return { props: {} };
 }
+
 export default function Login() {
 	const [fields, setFields] = useState({
 		email: '',
@@ -29,12 +25,12 @@ export default function Login() {
 		const loginReq = await fetch('/api/auth/login', {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(fields)
+			body: JSON.stringify(fields),
 		});
 
-		if(!loginReq.ok) return setStatus('error ' + loginReq.status);
+		if (!loginReq.ok) return setStatus('error ' + loginReq.status);
 
 		const loginRes = await loginReq.json();
 
@@ -49,34 +45,24 @@ export default function Login() {
 		const name = e.target.getAttribute('name');
 
 		setFields({
-		...fields,
-		[name]: e.target.value,
+			...fields,
+			[name]: e.target.value,
 		});
 	}
 
 	return (
 		<div>
-		<h1>Login</h1>
+			<h1>Login</h1>
 
-		<form onSubmit={loginHandler.bind(this)}>
-			<input 
-			onChange={fieldHandler.bind(this)}
-			type='text'
-			name='email'
-			placeholder='Email'
-			/>
+			<form onSubmit={loginHandler.bind(this)}>
+				<input onChange={fieldHandler.bind(this)} type="text" name="email" placeholder="Email" />
 
-			<input 
-			onChange={fieldHandler.bind(this)}
-			type='password'
-			name='password'
-			placeholder='Password'
-			/>
+				<input onChange={fieldHandler.bind(this)} type="password" name="password" placeholder="Password" />
 
-			<button type='submit'>Login</button>
+				<button type="submit">Login</button>
 
-			<div>Status: {status}</div>
-		</form>
+				<div>Status: {status}</div>
+			</form>
 		</div>
 	);
 }
