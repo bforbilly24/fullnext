@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Cookie from 'js-cookie';
 import Router from 'next/router';
+import cookies from 'next-cookies';
 
 export async function getServerSideProps(ctx) {
-	console.log(ctx.req.headers.cookie);
+	const allCookies = cookies(ctx);
+
+	if(!allCookies.token) 
+		ctx.res.writeHead(302, {
+			Location: '/posts'
+		}).end();
+
+	return { props: {} }
 }
 export default function Login() {
 	const [fields, setFields] = useState({
