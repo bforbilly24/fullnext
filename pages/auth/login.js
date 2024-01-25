@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Cookie from 'js-cookie';
 
 export default function Login() {
 	const [fields, setFields] = useState({
@@ -26,8 +27,8 @@ export default function Login() {
 		const loginRes = await loginReq.json();
 
 		setStatus('success');
-		
-		console.log(loginRes);
+
+		Cookie.set('token', loginRes.token);
 	}
 
 	function fieldHandler(e) {
