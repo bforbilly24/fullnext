@@ -1,45 +1,67 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 export default function Login() {
-  const [fields, setFields] = useState({
-    email: "",
-    password: "",
-  });
+	const [fields, setFields] = useState({
+		email: '',
+		password: '',
+	});
 
-  async function loginHandler(e) {
-    e.preventDefault();
-  }
+	const [status, setStatus] = useState('normal');
 
-  function fieldHandler(e) {
-    const name = e.target.getAttribute('name');
+	async function loginHandler(e) {
+		e.preventDefault();
 
-    setFields({
-      ...fields,
-      [name]: e.target.value,
-    });
-  }
+		setStatus('loading');
 
-  return (
-    <div>
-      <h1>Login</h1>
+		const loginReq = await fetch('/api/auth/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(fields)
+		});
 
-      <form onSubmit={loginHandler.bind(this)}>
-        <input 
-		onChange={fieldHandler.bind(this)}
-		type="text" 
-		name="email" 
-		placeholder="Email" 
-		/>
+		if(!loginReq.ok) return setStatus('error ' + loginReq.status);
 
-        <input 
-		onChange={fieldHandler.bind(this)}
-		type="password" 
-		name="password" 
-		placeholder="Password" 
-		/>
+		const loginRes = await loginReq.json();
 
-        <button type="submit">Login</button>
-      </form>
-    </div>
-  );
+		setStatus('success');
+		
+		console.log(loginRes);
+	}
+
+	function fieldHandler(e) {
+		const name = e.target.getAttribute('name');
+
+		setFields({
+		...fields,
+		[name]: e.target.value,
+		});
+	}
+
+	return (
+		<div>
+		<h1>Login</h1>
+
+		<form onSubmit={loginHandler.bind(this)}>
+			<input 
+			onChange={fieldHandler.bind(this)}
+			type='text'
+			name='email'
+			placeholder='Email'
+			/>
+
+			<input 
+			onChange={fieldHandler.bind(this)}
+			type='password'
+			name='password'
+			placeholder='Password'
+			/>
+
+			<button type='submit'>Login</button>
+
+			<div>Status: {status}</div>
+		</form>
+		</div>
+	);
 }
