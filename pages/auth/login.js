@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Cookie from 'js-cookie';
+import Router from 'next/router';
 
+export async function getServerSideProps(ctx) {
+	console.log(ctx.req.headers.cookie);
+}
 export default function Login() {
 	const [fields, setFields] = useState({
 		email: '',
@@ -29,6 +33,8 @@ export default function Login() {
 		setStatus('success');
 
 		Cookie.set('token', loginRes.token);
+
+		Router.push('/posts');
 	}
 
 	function fieldHandler(e) {
