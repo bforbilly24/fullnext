@@ -13,13 +13,21 @@ export async function getServerSideProps(ctx) {
 
 	console.log(posts);
 
-	return { props: {} };
+	return {
+		props: {
+            posts: posts.data
+        },
+	};
 }
 
-export default function PostIndex() {
+export default function PostIndex(props) {
 	return (
 		<div>
 			<h1>Posts</h1>
+
+			{props.posts.map((post) => (
+            <div key={post.id}>{ post.title } . { post.id }</div>
+            ))}
 		</div>
 	);
 }
