@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Cookie from 'js-cookie';
 import Router from 'next/router';
 import { unauthPage } from '../../middlewares/authorizationPage';
+import Link from 'next/link';
 
 export async function getServerSideProps(ctx) {
 	await unauthPage(ctx);
@@ -62,6 +63,8 @@ export default function Login() {
 				<button type="submit">Login</button>
 
 				<div>Status: {status}</div>
+
+                <Link href="/auth/register"><a>Register</a></Link>
 			</form>
 		</div>
 	);
