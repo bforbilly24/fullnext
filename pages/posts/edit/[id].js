@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { authPage } from "../../../middlewares/authorizationPage";
 import Router from "next/router";
+import Nav from '../../../components/Nav';
 
 export async function getServerSideProps(ctx) {
 	const { token } = await authPage(ctx);
@@ -72,6 +73,8 @@ export default function PostCreate(props) {
     return(
         <div>
             <h1>Edit a Post</h1>
+
+            <Nav />
 
             <p>Post ID: {post.id}</p>
 
