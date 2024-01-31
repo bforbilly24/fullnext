@@ -16,8 +16,6 @@ export async function getServerSideProps(ctx) {
 
     const res = await postReq.json();
 
-    console.log(res)
-
     return {
         props: {
             token,

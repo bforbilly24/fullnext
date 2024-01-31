@@ -14,8 +14,6 @@ export async function getServerSideProps(ctx) {
 
 	const posts = await postReq.json();
 
-	console.log(posts);
-
 	return {
 		props: {
             token,
@@ -27,7 +25,6 @@ export async function getServerSideProps(ctx) {
 export default function PostIndex(props) {
 	const [posts, setPosts] =  useState(props.posts);
 
-    console.log(posts);
     async function deleteHandler(id, e) {
         e.preventDefault();
 
