@@ -1,11 +1,10 @@
 var knex = require('knex')({
-    client: 'mysql',
+    client: process.env.DB_CLIENT,
     connection: {
-      host: 'localhost',
-      port: 3306,
-      user: 'nextjs',
-      password: 'Nextjs123##',
-      database : 'fullstacknextjs'
+      host: process.env.DB_HOST,
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database : process.env.DB_NAME
     }
   });
 
