@@ -5,17 +5,32 @@ import Router from "next/router";
 export async function getServerSideProps(ctx) {
 	const { token } = await authPage(ctx);
 
+    const { id } = ctx.query;
+
+    const postReq = await fetch('http://localhost:3000/api/posts/detail/' + id, {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    });
+
+    const res = await postReq.json();
+
+    console.log(res)
+
     return {
         props: {
-            token
+            token,
+            post: res.data
         }
     }
 }
 
 export default function PostCreate(props) {
+    const { post } = props;
+    
     const [ fields, setFields ] = useState({
-        title: '',
-        content: ''
+        title: post.title,
+        content: post.content
     });
 
     const [ status, setStatus ] = useState('normal');
@@ -27,7 +42,7 @@ export default function PostCreate(props) {
 
         const { token } = props;
 
-        const update = await fetch('/api/posts/update', {
+        const update = await fetch('/api/posts/update/' + post.id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -58,12 +73,15 @@ export default function PostCreate(props) {
         <div>
             <h1>Edit a Post</h1>
 
+            <p>Post ID: {post.id}</p>
+
             <form onSubmit={updateHandler.bind(this)}>
                 <input 
                     onChange={fieldHandler.bind(this)}
                     type="text" 
                     placeholder="Title" 
                     name="title" 
+                    defaultValue={post.title}
                 />
                 <br />
                 <textarea 
@@ -71,11 +89,12 @@ export default function PostCreate(props) {
                     type="text" 
                     placeholder="Content" 
                     name="content" 
+                    defaultValue={post.content}
                 ></textarea>
                 <br />
 
                 <button type="submit">
-                    Create Post
+                    Saves Changes
                 </button>
 
                 <div>
