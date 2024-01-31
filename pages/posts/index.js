@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { authPage } from '../../middlewares/authorizationPage';
 
 export async function getServerSideProps(ctx) {
@@ -15,32 +16,53 @@ export async function getServerSideProps(ctx) {
 
 	return {
 		props: {
+            token,
 			posts: posts.data,
 		},
 	};
 }
 
 export default function PostIndex(props) {
-	function deleteHandler(e) {
+	const [posts, setPosts] =  useState(props.posts);
+
+    console.log(posts);
+    async function deleteHandler(id, e) {
         e.preventDefault();
+
+        const { token } = props;
 
         const ask = confirm('Apakah data ini akan dihapus?');
 
-        if(ask) return console.log('Delete');
+        if(ask) {
+            const deletePost = await fetch('/api/posts/delete/' + id, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+
+            const res = await deletePost.json();
+
+            const postsFiltered  = posts.filter(post => {
+                return post.id !== id && post;
+            });
+
+            setPosts(postsFiltered);
+        }
     }
     
     return (
 		<div>
 			<h1>Posts</h1>
 
-			{ props.posts.map((post) => (
+			{ props.posts.map(post => (
 				<div key={post.id}>
 					<h3>{ post.title }</h3>
                     <p>{ post.content }</p>
 
                     <div>
                         <button>Edit</button>
-                        <button onClick={deleteHandler.bind(this)}>Delete</button>
+                        <button onClick={deleteHandler.bind(this, post.id)}>Delete</button>
                     </div>
 
                     <hr/>
