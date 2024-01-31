@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     const token = jwt.sign({
         id: checkUser.id,
         email: checkUser.email
-    }, 'ibukuCantik', {
+    }, process.env.JWT_SECRET, {
         expiresIn: '7d'
     });
 
