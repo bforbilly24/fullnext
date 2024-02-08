@@ -1,0 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://unicons.iconscout.com/release/v2.1.9/css/unicons.css');
+@import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css');
+
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+}
+
+body {
+	overflow: hidden;
+}
+
+/* Start UI Form */
+section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: linear-gradient(to bottom, #f1f4f9, #dff1ff);
+}
+
+section .color {
+	position: absolute;
+	filter: blur(150px);
+}
+
+section .color:nth-child(1) {
+	top: -350px;
+	width: 600px;
+	height: 600px;
+	background-color: #37db88;
+}
+
+section .color:nth-child(2) {
+	bottom: -150px;
+	left: 100px;
+	width: 500px;
+	height: 500px;
+	background-color: #3793db;
+}
+
+section .color:nth-child(3) {
+	bottom: 50px;
+	right: 100px;
+	width: 300px;
+	height: 300px;
+	background-color: #b15afe;
+}
+
+
+.container {
+	position: relative;
+	width: 400px;
+	min-height: 400px;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	backdrop-filter: blur(8px);
+	box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	border-right: 1px solid rgba(255, 255, 255, 0.2);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.form {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 40px;
+}
+
+.form h2 {
+	position: relative;
+	font-size: 2em;
+	color: #fff;
+	font-weight: 600;
+	letter-spacing: 1px;
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+.form h2:before {
+	content: '';
+	position: absolute;
+	left: 50;
+	bottom: -10px;
+	width: 80px;
+	height: 4px;
+	background-color: #fff;
+}
+
+.input-box {
+	position: relative;
+	width: 310px;
+	margin: 30px 0;
+	border-bottom: 1px solid #fff;
+}
+
+
+.input-box span svg {
+    cursor: pointer;
+    fill: #000;
+}
+
+.input-box label {
+	position: absolute;
+	top: 50%;
+	left: 5px;
+	transform: translateY(-50%);
+	font-size: 1em;
+	color: #fff;
+	pointer-events: none;
+	transition: 0.5s;
+    margin-left: 5px;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+	top: -5px;
+}
+
+.input-box input {
+	width: 100%;
+	height: 50px;
+	background: transparent;
+	border: none;
+	outline: none;
+	font-size: 1em;
+	color: #fff;
+	padding: 0 35px 0 5px;
+}
+
+.input-box .icon {
+	position: absolute;
+	right: 8px;
+	top: 50%;
+	color: #fff;
+	transform: translateY(-50%);
+}
+
+.remember-forgot {
+	margin: -15px 0 15px;
+	font-size: 0.9em;
+	color: #fff;
+	display: flex;
+	justify-content: space-between;
+}
+
+.remember-forgot label input {
+	margin-right: 3px;
+}
+
+.remember-forgot a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.remember-forgot a:hover {
+	text-decoration: underline;
+}
+
+.btn-login,
+.btn-register {
+	width: 100%;
+	height: 40px;
+	background-color: #fff;
+	border: none;
+	border-radius: 40px;
+	cursor: pointer;
+	font-size: 1em;
+	color: #000;
+	font-weight: 500;
+}
+
+.btn-login[type="submit"]:hover,
+.btn-register[type="submit"]:hover
+ {
+    background: linear-gradient(115deg, 
+      rgba(0,0,0,0.10), 
+      rgba(255,255,255,0.25));
+    color: #0c0c0c;
+    transition: .5s;
+  }
+
+.login-link,
+.register-link {
+	font-size: 0.9em;
+	color: #0c0c0c;
+	text-align: center;
+	margin: 25px 0 10px;
+}
+
+.login-link p a,
+.register-link p a{
+	color: #0c0c0c;
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.login-link p a:hover,
+.register-link p a:hover{
+	text-decoration: underline;
+}
+
+  section .box-post {
+    position: relative;
+  }
+
+  section .box-post .square {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    animation: square 10s linear infinite;
+    animation-delay: calc(-1s * var(--i));
+  }
+  
+  @keyframes square {
+    0%,100% {
+      transform: translateY(-20px);
+    }
+    
+    50% {
+      transform: translateY(20px);
+    }
+  }
+
+  section .box-post .square:nth-child(1) {
+    width: 100px;
+    height: 100px;
+    bottom: -15px;
+    left: -45px;
+  }
+  
+  section .box-post .square:nth-child(2) {
+    width: 130px;
+    height: 130px;
+    bottom: 105px;
+    right: -125px;
+    z-index: 2;
+  }
+  
+  section .box-post .square:nth-child(3) {
+    width: 90px;
+    height: 90px;
+    top: 85px;
+    left: -45px;
+    z-index: 2;
+  }
+  
+  section .box-post .square:nth-child(4) {
+    width: 80px;
+    height: 80px;
+    top: 35px;
+    right: -95px;
+  }
+  
+  section .box-post .square:nth-child(5) {
+    width: 70px;
+    height: 60px;
+    bottom: -15px;
+    right: -25px;
+  }
+
+  
+/* End of UI Form*/
