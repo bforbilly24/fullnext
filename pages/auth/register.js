@@ -45,19 +45,58 @@ export default function Register() {
 	}
 
 	return (
-		<div>
-			<h1>Register</h1>
+		<>
+			<section>
+				<div className="color"></div>
+				<div className="color"></div>
+				<div className="color"></div>
+				<div className="box-post">
+					<div className="square"></div>
+					<div className="square"></div>
+					<div className="square"></div>
+					<div className="square"></div>
+					<div className="square"></div>
+					<div className="container">
+						<div className="form">
+							<h2>Register Form</h2>
 
-			<form onSubmit={registerHandler.bind(this)}>
-				<input name="email" onChange={fieldHandler.bind(this)} type="text" placeholder="Email" />
-				<input name="password" onChange={fieldHandler.bind(this)} type="password" placeholder="Password" />
-				<br />
-				<button type="submit">Register</button>
+							<form onSubmit={registerHandler.bind(this)}>
+								<div class="input-box">
+									<span class="icon">
+										<ion-icon name="mail"></ion-icon>
+									</span>
+									<input name="email" onChange={fieldHandler.bind(this)} type="text" autocomplete="off" required />
+									<label>
+										<i class="input-icon uil uil-at">Email</i>
+									</label>
+								</div>
 
-				<div>Output: {status}</div>
-                
-                <Link href="/auth/login"><a>Login</a></Link>
-			</form>
-		</div>
+								<div className="input-box">
+									<span className="icon">
+										<ion-icon name="lock-closed"></ion-icon>
+									</span>
+									<input name="password" onChange={fieldHandler.bind(this)} type="password" autocomplete="off" required />
+									<label>
+										<i class="input-icon uil uil-lock-alt">Password</i>
+									</label>
+								</div>
+
+								<button className="btn-register" type="submit">Register</button>
+
+								<div class="register-link">
+									<p>
+										Already have an account? &nbsp;
+										<Link href="/auth/login">
+											<a>LogIn</a>
+										</Link>
+									</p>
+									{/* <div>Status: {status}</div>   */}
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+		</>
 	);
 }
