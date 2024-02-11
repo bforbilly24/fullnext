@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Cookie from 'js-cookie';
 import Router from 'next/router';
 import { unauthPage } from '../../middlewares/authorizationPage';
@@ -17,6 +17,7 @@ export default function Login() {
 	});
 
 	const [status, setStatus] = useState('normal');
+	const [passwordVisible, setPasswordVisible] = useState(false);
 
 	async function loginHandler(e) {
 		e.preventDefault();
@@ -52,20 +53,68 @@ export default function Login() {
 	}
 
 	return (
-		<div>
-			<h1>Login</h1>
+		<>
+			<section>
+				<div className="color"></div>
+				<div className="color"></div>
+				<div className="color"></div>
+				<div className="box-post">
+					<div className="square"></div>
+					<div className="square"></div>
+					<div className="square"></div>
+					<div className="square"></div>
+					<div className="square"></div>
+					<div className="container">
+						<div className="form">
+							<h2>LogIn Form</h2>
+							<form onSubmit={loginHandler.bind(this)}>
+								<div className="input-box">
+									<span className="icon">
+										<ion-icon name="mail"></ion-icon>
+									</span>
+									<input onChange={fieldHandler.bind(this)} type="text" name="email" autoComplete="off" required />
+									<label>
+										<i className="input-icon uil uil-at">Email</i>
+									</label>
+								</div>
 
-			<form onSubmit={loginHandler.bind(this)}>
-				<input onChange={fieldHandler.bind(this)} type="text" name="email" placeholder="Email" />
+								<div className="input-box">
+									<span className="icon">
+										<img
+											src={passwordVisible ? "/login/show.svg" : "/login/hide.svg"}
+											className="btn-password"
+											onClick={() => setPasswordVisible(!passwordVisible)}
+											width={30}
+											height={30}
+											xmlns="http://www.w3.org/2000/svg"
+											alt={passwordVisible ? "hide" : "show"}
+										/>
+									</span>
 
-				<input onChange={fieldHandler.bind(this)} type="password" name="password" placeholder="Password" />
+									<input onChange={fieldHandler.bind(this)} id="password-input" type={passwordVisible ? 'text' : 'password'} name="password" autoComplete="off" required />
+									<label>
+										<i className="fas fa-key input-icon">Password</i>
+									</label>
+								</div>
 
-				<button type="submit">Login</button>
+								<button className="btn-login" type="submit">
+									LogIn
+								</button>
 
-				<div>Status: {status}</div>
-
-                <Link href="/auth/register"><a>Register</a></Link>
-			</form>
-		</div>
+								<div className="login-link">
+									<p>
+										Don't have an account? &nbsp;
+										<Link href="/auth/register">
+											<a>Register</a>
+										</Link>
+									</p>
+									{/* <div>Status: {status}</div>   */}
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+		</>
 	);
 }
