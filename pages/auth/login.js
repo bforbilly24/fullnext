@@ -93,7 +93,7 @@ export default function Login() {
 
 									<input onChange={fieldHandler.bind(this)} id="password-input" type={passwordVisible ? 'text' : 'password'} name="password" autoComplete="off" required />
 									<label>
-										<i className="fas fa-key input-icon">Password</i>
+										<i class="input-icon uil uil-lock-alt">Password</i>
 									</label>
 								</div>
 
