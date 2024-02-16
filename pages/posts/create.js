@@ -56,7 +56,7 @@ export default function PostCreate(props) {
     }
     
     return(
-        <div>
+        <div className="bg-layout">
             <h1>Create a Post</h1>
 
             <Nav />
